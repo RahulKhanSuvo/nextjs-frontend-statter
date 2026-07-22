@@ -38,6 +38,7 @@ export function FormInput({ field, label, type = 'text', placeholder, startIcon 
         <Input
           id={field.name}
           name={field.name}
+          aria-invalid={isInvalid}
           type={inputType}
           placeholder={placeholder}
           value={field.state.value}
