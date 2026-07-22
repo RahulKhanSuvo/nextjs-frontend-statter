@@ -3,6 +3,7 @@ import { useForm } from '@tanstack/react-form';
 import { loginZodSchema } from '../auth.validation';
 import { FormInput } from '@/components/shared/FormInput';
 import { Mail, Lock } from 'lucide-react';
+import { AppSubmitButton } from '@/components/shared/AppSubmitButton';
 
 function LoginForm() {
   const form = useForm({
@@ -27,6 +28,7 @@ function LoginForm() {
         e.stopPropagation();
         form.handleSubmit();
       }}
+      className="w-full border h-full"
     >
       <form.Field name="email">
         {(field) => (
@@ -50,7 +52,7 @@ function LoginForm() {
           />
         )}
       </form.Field>
-      <button type="submit">Login</button>
+      <AppSubmitButton size={'lg'}>Login</AppSubmitButton>
     </form>
   );
 }
