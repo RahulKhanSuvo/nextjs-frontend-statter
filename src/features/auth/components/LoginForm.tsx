@@ -28,7 +28,7 @@ function LoginForm() {
         e.stopPropagation();
         form.handleSubmit();
       }}
-      className="w-full border h-full"
+      className="w-full h-full"
     >
       <form.Field name="email">
         {(field) => (
