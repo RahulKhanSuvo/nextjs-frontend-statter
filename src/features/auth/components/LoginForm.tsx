@@ -4,6 +4,8 @@ import { loginZodSchema } from '../auth.validation';
 import { FormInput } from '@/components/shared/FormInput';
 import { Mail, Lock } from 'lucide-react';
 import { AppSubmitButton } from '@/components/shared/AppSubmitButton';
+import { loginAction } from '../action';
+import { toast } from 'sonner';
 
 function LoginForm() {
   const form = useForm({
@@ -15,7 +17,8 @@ function LoginForm() {
       onSubmit: loginZodSchema,
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      await loginAction(value);
+      toast.success('Login successful');
     },
   });
   return (
