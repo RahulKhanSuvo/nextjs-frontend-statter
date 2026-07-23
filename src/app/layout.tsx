@@ -30,8 +30,8 @@ export default function RootLayout({
     <html lang="en" className={`${inter.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">
         <QueryProviders>{children}</QueryProviders>
+        <Toaster theme="system" position="top-right" />
       </body>
-      <Toaster theme="system" position="top-right" />
     </html>
   );
 }
