@@ -3,7 +3,7 @@
 import { isAxiosError } from 'axios';
 import { ILoginPayload, loginZodSchema } from './auth.validation';
 import { httpClient } from '@/lib/axios';
-import { ILoginResponse, UserInfo } from '@/types/auth.type';
+import { ILoginResponse, IRefreshTokenResponse, UserInfo } from '@/types/auth.type';
 import { setTokenInCookies } from '@/lib/tokenUtil';
 import { ApiErrorResponse } from '@/types/api.type';
 
@@ -52,6 +52,23 @@ export const getCurrentUser = async (): Promise<UserInfo | null> => {
     const res = await httpClient.get<UserInfo>('/auth/me');
     console.log(res.data);
     return res.data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
+  }
+};
+// get new token
+export const getNewToken = async () => {
+  try {
+    const res = await httpClient.post<IRefreshTokenResponse>('/auth/refresh-token');
+    const { sessionToken, accessToken, refreshToken } = res.data;
+    await setTokenInCookies('better-auth.session_token', sessionToken);
+    await setTokenInCookies('accessToken', accessToken);
+    await setTokenInCookies('refreshToken', refreshToken);
+    return {
+      success: true,
+      message: 'Token refreshed',
+    };
   } catch (error) {
     console.error('Error:', error);
     return null;

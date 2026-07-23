@@ -42,7 +42,7 @@ const httpGet = async <TData>(
 };
 const httpPost = async <TData>(
   url: string,
-  data: unknown,
+  data?: unknown,
   option?: ApiRequestOptions,
 ): Promise<ApiResponse<TData>> => {
   try {

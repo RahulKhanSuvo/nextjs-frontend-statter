@@ -35,3 +35,8 @@ export interface UserInfo {
   isDeleted: boolean;
   deletedAt: string | null;
 }
+export interface IRefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
+  sessionToken: string;
+}
