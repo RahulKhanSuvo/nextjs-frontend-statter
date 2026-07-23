@@ -14,11 +14,7 @@ export const getCommonNavItems = (role: UserRole): NavItem[] => {
       href: defaultDashboard,
       icon: 'PanelsTopLeft',
     },
-    {
-      title: 'Profile',
-      href: '/profile',
-      icon: 'User',
-    },
+
     {
       title: 'Settings',
       href: '/settings',
@@ -48,13 +44,18 @@ export const getDoctorNavItems = (): NavItem[] => {
       href: '/doctor/dashboard/reviews',
       icon: 'Star',
     },
+    {
+      title: 'Profile',
+      href: '/doctor/dashboard/profile',
+      icon: 'User',
+    },
   ];
 };
 export const getPatientNavItems = (): NavItem[] => {
   return [
     {
       title: 'Appointments',
-      href: 'patient/appointments',
+      href: '/patient/appointments',
       icon: 'ClipboardClock',
     },
   ];
@@ -63,12 +64,12 @@ export const getAdminNavItems = (): NavItem[] => {
   return [
     {
       title: 'Patients',
-      href: 'admin/patients',
+      href: '/admin/patients',
       icon: 'Users',
     },
     {
       title: 'Doctors',
-      href: 'admin/doctors',
+      href: '/admin/doctors',
       icon: 'User',
     },
   ];
