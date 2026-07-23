@@ -3,7 +3,7 @@
 import { isAxiosError } from 'axios';
 import { ILoginPayload, loginZodSchema } from './auth.validation';
 import { httpClient } from '@/lib/axios';
-import { ILoginResponse } from '@/types/auth.type';
+import { ILoginResponse, UserInfo } from '@/types/auth.type';
 import { setTokenInCookies } from '@/lib/tokenUtil';
 import { ApiErrorResponse } from '@/types/api.type';
 
@@ -44,5 +44,16 @@ export const loginAction = async (
       success: false,
       message,
     };
+  }
+};
+
+export const getCurrentUser = async (): Promise<UserInfo | null> => {
+  try {
+    const res = await httpClient.get<UserInfo>('/auth/me');
+    console.log(res.data);
+    return res.data;
+  } catch (error) {
+    console.error('Error:', error);
+    return null;
   }
 };
