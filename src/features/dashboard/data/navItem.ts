@@ -30,22 +30,22 @@ export const getDoctorNavItems = (): NavItem[] => {
   return [
     {
       title: 'Appointments',
-      href: 'doctor/dashboard/appointments',
+      href: '/doctor/dashboard/appointments',
       icon: 'ClipboardClock',
     },
     {
       title: 'Schedule',
-      href: 'doctor/dashboard/schedule',
+      href: '/doctor/dashboard/schedule',
       icon: 'Calendar1',
     },
     {
       title: 'Patients',
-      href: 'doctor/dashboard/patients',
+      href: '/doctor/dashboard/patients',
       icon: 'Users',
     },
     {
       title: 'Reviews',
-      href: 'doctor/dashboard/reviews',
+      href: '/doctor/dashboard/reviews',
       icon: 'Star',
     },
   ];
