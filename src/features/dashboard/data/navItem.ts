@@ -1,12 +1,18 @@
 import { NavItem } from '../dashboard.type';
-import { UserRole } from '@/lib/authUtil';
+import { getDefaultRoute, UserRole } from '@/lib/authUtil';
 
-export const getCommonNavItems = (): NavItem[] => {
+export const getCommonNavItems = (role: UserRole): NavItem[] => {
+  const defaultDashboard = getDefaultRoute(role);
   return [
     {
       title: 'Home',
       href: '/',
       icon: 'Home',
+    },
+    {
+      title: 'Dashboard',
+      href: defaultDashboard,
+      icon: 'PanelsTopLeft',
     },
     {
       title: 'Profile',
@@ -22,12 +28,6 @@ export const getCommonNavItems = (): NavItem[] => {
 };
 export const getDoctorNavItems = (): NavItem[] => {
   return [
-    ...getCommonNavItems(),
-    {
-      title: 'Dashboard',
-      href: 'doctor/dashboard',
-      icon: 'LayoutGrid',
-    },
     {
       title: 'Appointments',
       href: 'doctor/dashboard/appointments',
@@ -52,7 +52,6 @@ export const getDoctorNavItems = (): NavItem[] => {
 };
 export const getPatientNavItems = (): NavItem[] => {
   return [
-    ...getCommonNavItems(),
     {
       title: 'Appointments',
       href: 'patient/appointments',
@@ -62,12 +61,6 @@ export const getPatientNavItems = (): NavItem[] => {
 };
 export const getAdminNavItems = (): NavItem[] => {
   return [
-    ...getCommonNavItems(),
-    {
-      title: 'Dashboard',
-      href: 'admin/dashboard',
-      icon: 'LayoutGrid',
-    },
     {
       title: 'Patients',
       href: 'admin/patients',
@@ -83,12 +76,12 @@ export const getAdminNavItems = (): NavItem[] => {
 export const getNavItemsByRole = (role: UserRole): NavItem[] => {
   switch (role) {
     case 'DOCTOR':
-      return getDoctorNavItems();
+      return [...getCommonNavItems(role), ...getDoctorNavItems()];
     case 'PATIENT':
-      return getPatientNavItems();
+      return [...getCommonNavItems(role), ...getPatientNavItems()];
     case 'SUPER_ADMIN':
-      return getAdminNavItems();
+      return [...getCommonNavItems(role), ...getAdminNavItems()];
     default:
-      return getCommonNavItems();
+      return getCommonNavItems(role);
   }
 };
