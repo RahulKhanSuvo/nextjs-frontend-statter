@@ -23,7 +23,7 @@ function LoginForm() {
     onSubmit: async ({ value }) => {
       try {
         const result = await mutateAsync(value);
-        if (!result.success) {
+        if ('success' in result && !result.success) {
           toast.error(result.message);
           return;
         }
