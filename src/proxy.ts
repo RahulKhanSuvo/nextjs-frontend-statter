@@ -12,7 +12,7 @@ export async function proxy(request: NextRequest) {
     console.log('routeOwner', routeOwner);
     console.log('isAuthRoute', isAuth);
 
-    if (isAuth) {
+    if (isAuth && pathname !== '/verify-email' && pathname !== '/reset-password') {
       return NextResponse.redirect(new URL(getDefaultRoute(user?.role as UserRole), request.url));
     }
     if (routeOwner === 'COMMON') {
@@ -23,6 +23,7 @@ export async function proxy(request: NextRequest) {
         return NextResponse.redirect(new URL(getDefaultRoute(user?.role as UserRole), request.url));
       }
     }
+    return NextResponse.next();
   } catch (error) {
     console.error('Proxy Error:', error);
     return NextResponse.next();
