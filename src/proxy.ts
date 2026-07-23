@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDefaultRoute, isAuthRoute } from './lib/authUtil';
+import { getCurrentUser } from './features/auth/action';
 
 export async function proxy(request: NextRequest) {
   try {
     const { pathname } = request.nextUrl;
+    const user = await getCurrentUser();
+    console.log('user from proxy', user);
     const isAuth = isAuthRoute(pathname);
     if (isAuth) {
       return NextResponse.redirect(new URL(getDefaultRoute('SUPER_ADMIN'), request.url));
