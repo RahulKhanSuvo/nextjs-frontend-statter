@@ -1,31 +1,22 @@
-import {
-  Calendar1,
-  ClipboardClock,
-  Home,
-  LayoutGrid,
-  Settings,
-  Star,
-  User,
-  Users,
-} from 'lucide-react';
 import { NavItem } from '../dashboard.type';
+import { UserRole } from '@/lib/authUtil';
 
 export const getCommonNavItems = (): NavItem[] => {
   return [
     {
       title: 'Home',
       href: '/',
-      icon: Home,
+      icon: 'Home',
     },
     {
       title: 'Profile',
       href: '/profile',
-      icon: User,
+      icon: 'User',
     },
     {
       title: 'Settings',
       href: '/settings',
-      icon: Settings,
+      icon: 'Settings',
     },
   ];
 };
@@ -35,27 +26,27 @@ export const getDoctorNavItems = (): NavItem[] => {
     {
       title: 'Dashboard',
       href: 'doctor/dashboard',
-      icon: LayoutGrid,
+      icon: 'LayoutGrid',
     },
     {
       title: 'Appointments',
       href: 'doctor/dashboard/appointments',
-      icon: ClipboardClock,
+      icon: 'ClipboardClock',
     },
     {
       title: 'Schedule',
       href: 'doctor/dashboard/schedule',
-      icon: Calendar1,
+      icon: 'Calendar1',
     },
     {
       title: 'Patients',
       href: 'doctor/dashboard/patients',
-      icon: Users,
+      icon: 'Users',
     },
     {
       title: 'Reviews',
       href: 'doctor/dashboard/reviews',
-      icon: Star,
+      icon: 'Star',
     },
   ];
 };
@@ -65,7 +56,7 @@ export const getPatientNavItems = (): NavItem[] => {
     {
       title: 'Appointments',
       href: 'patient/appointments',
-      icon: ClipboardClock,
+      icon: 'ClipboardClock',
     },
   ];
 };
@@ -75,27 +66,27 @@ export const getAdminNavItems = (): NavItem[] => {
     {
       title: 'Dashboard',
       href: 'admin/dashboard',
-      icon: LayoutGrid,
+      icon: 'LayoutGrid',
     },
     {
       title: 'Patients',
       href: 'admin/patients',
-      icon: Users,
+      icon: 'Users',
     },
     {
       title: 'Doctors',
       href: 'admin/doctors',
-      icon: User,
+      icon: 'User',
     },
   ];
 };
-export const getNavItemsByRole = (role: string): NavItem[] => {
+export const getNavItemsByRole = (role: UserRole): NavItem[] => {
   switch (role) {
-    case 'doctor':
+    case 'DOCTOR':
       return getDoctorNavItems();
-    case 'patient':
+    case 'PATIENT':
       return getPatientNavItems();
-    case 'admin':
+    case 'SUPER_ADMIN':
       return getAdminNavItems();
     default:
       return getCommonNavItems();
