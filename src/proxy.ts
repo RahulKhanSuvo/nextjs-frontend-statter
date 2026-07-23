@@ -12,9 +12,24 @@ export async function proxy(request: NextRequest) {
     console.log('routeOwner', routeOwner);
     console.log('isAuthRoute', isAuth);
 
-    if (isAuth && pathname !== '/verify-email' && pathname !== '/reset-password') {
+    if (isAuth && user && pathname !== '/verify-email' && pathname !== '/reset-password') {
       return NextResponse.redirect(new URL(getDefaultRoute(user?.role as UserRole), request.url));
     }
+
+    if (routeOwner === null) {
+      return NextResponse.next();
+    }
+
+    if (!user) {
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('redirect', request.url);
+      return NextResponse.redirect(loginUrl);
+    }
+    // if (user) {
+    //   if (user.emailVerified === false) {
+    //     return NextResponse.redirect(new URL('/verify-email', request.url));
+    //   }
+    // }
     if (routeOwner === 'COMMON') {
       return NextResponse.next();
     }
