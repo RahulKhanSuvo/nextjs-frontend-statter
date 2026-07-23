@@ -3,11 +3,12 @@
 import { isAxiosError } from 'axios';
 import { ILoginPayload } from './auth.validation';
 import { httpClient } from '@/lib/axios';
+import { ILoginResponse } from '@/types/auth.type';
 
 export const loginAction = async (payload: ILoginPayload) => {
   console.log(payload);
   try {
-    const res = await httpClient.post('/auth/login', payload);
+    const res = await httpClient.post<ILoginResponse>('/auth/login', payload);
     return {
       success: true,
       data: res.data,
