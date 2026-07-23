@@ -1,17 +1,24 @@
 import { ApiResponse } from '@/types/api.type';
 import axios from 'axios';
+import { cookies } from 'next/headers';
 // import { cookies } from 'next/headers';
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 if (!API_URL) throw new Error('NEXT_PUBLIC_API_BASE_URL is not defined');
 
 const axiosInstance = async () => {
-  // const cookiesStore = await cookies();
-  // const cookiesString = cookiesStore.toString();
+  const cookieStore = await cookies();
+  // const accessToken = cookieStore.get('accessToken')?.value;
+  // const refreshToken = cookieStore.get('refreshToken')?.value;
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((cookie) => `${cookie.name}=${cookie.value}`)
+    .join('; ');
   return axios.create({
     baseURL: API_URL,
     timeout: 50000,
     headers: {
       'Content-Type': 'application/json',
+      Cookie: cookieHeader,
     },
   });
 };
