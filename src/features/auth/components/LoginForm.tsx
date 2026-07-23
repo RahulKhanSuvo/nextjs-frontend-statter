@@ -1,13 +1,17 @@
 'use client';
 import { useForm } from '@tanstack/react-form';
-import { loginZodSchema } from '../auth.validation';
+import { ILoginPayload, loginZodSchema } from '../auth.validation';
 import { FormInput } from '@/components/shared/FormInput';
 import { Mail, Lock } from 'lucide-react';
 import { AppSubmitButton } from '@/components/shared/AppSubmitButton';
 import { loginAction } from '../action';
 import { toast } from 'sonner';
+import { useMutation } from '@tanstack/react-query';
 
 function LoginForm() {
+  const { mutateAsync } = useMutation({
+    mutationFn: (payload: ILoginPayload) => loginAction(payload),
+  });
   const form = useForm({
     defaultValues: {
       email: '',
@@ -18,8 +22,7 @@ function LoginForm() {
     },
     onSubmit: async ({ value }) => {
       try {
-        const result = await loginAction(value);
-
+        const result = await mutateAsync(value);
         if (!result.success) {
           toast.error(result.message);
           return;
