@@ -17,8 +17,18 @@ function LoginForm() {
       onSubmit: loginZodSchema,
     },
     onSubmit: async ({ value }) => {
-      await loginAction(value);
-      toast.success('Login successful');
+      try {
+        const result = await loginAction(value);
+
+        if (!result.success) {
+          toast.error(result.message);
+          return;
+        }
+        console.log(result);
+        toast.success('Login successful');
+      } catch (error) {
+        toast.error(error instanceof Error ? error.message : String(error));
+      }
     },
   });
   return (
@@ -55,7 +65,13 @@ function LoginForm() {
           />
         )}
       </form.Field>
-      <AppSubmitButton size={'lg'}>Login</AppSubmitButton>
+      <form.Subscribe selector={(s) => [s.canSubmit, s.isSubmitting] as const}>
+        {([canSubmit, isSubmitting]) => (
+          <AppSubmitButton isPending={isSubmitting} disabled={!canSubmit}>
+            Login
+          </AppSubmitButton>
+        )}
+      </form.Subscribe>
     </form>
   );
 }
