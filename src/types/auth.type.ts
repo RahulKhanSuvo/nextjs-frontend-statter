@@ -1,3 +1,5 @@
+import { UserRole } from '@/lib/authUtil';
+
 export interface ILoginResponse {
   token: string;
   accessToken: string;
@@ -17,4 +19,19 @@ export interface ILoginResponse {
     isDeleted: boolean;
     deletedAt: string | null;
   };
+}
+
+export interface UserInfo {
+  id: string;
+  email: string;
+  name: string;
+  role: UserRole;
+  image: string | null;
+  status: string;
+  emailVerified: boolean;
+  needPasswordChange: boolean;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+  deletedAt: string | null;
 }
